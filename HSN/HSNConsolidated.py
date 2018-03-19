@@ -2,14 +2,14 @@ import NiceDeviceConn
 import csv
 import time
 
-niceConn = NiceDeviceConn.niceDevices("admin", "admin", "Odoo_back", "http://localhost:8069/xmlrpc")
+niceConn = NiceDeviceConn.niceDevices("admin", "admin123", "production", "http://188.42.96.102:8069/xmlrpc")
 
 hsnDatas = niceConn.readData("hs.code", readFields=["code"])
 print len(hsnDatas)
 
 tempDetail = []
 
-with open("HSNReportWithUnTaxAmt_Chennai.csv", "rb") as csvReader:
+with open("HSNReport_Kochi.csv", "rb") as csvReader:
 	hsnDetails = csv.reader(csvReader, delimiter=',', quotechar='"')
 	for hsnDetail in hsnDetails:
 		tempDetail.append(hsnDetail)
@@ -68,7 +68,7 @@ for hsnData in hsnDatas:
 
 fields = ["Hsn", "Category", "Quantity", "Untaxed Amount", "Igst", "Sgst", "Cgst", "Taxed Amount"]
 
-with open("HsnConsolidted_Chennai.csv", "w") as csvFile:
+with open("HsnConsolidted_Kochi.csv", "w") as csvFile:
 
 	csvWrite = csv.writer(csvFile)
 

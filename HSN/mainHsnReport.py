@@ -1,9 +1,9 @@
 import NiceDeviceConn
 import csv
 
-niceConn = NiceDeviceConn.niceDevices("adminsale331", "adminsale331", "Production", "http://54.201.242.197:8069/xmlrpc")
+niceConn = NiceDeviceConn.niceDevices("admin", "admin123", "production", "http://188.42.96.102:8069/xmlrpc")
 
-invoices =  niceConn.readData("account.invoice", searchFields=[("state","=","open"),("company_id", "=", 5),("date_invoice", ">=", "2017-07-01"), ("date_invoice", "<=", "2017-07-31"), ("number", "!=", "SCNJ/2017/0001"), ("number", "!=", "SAJ-B-321/2017/0053"), ("number", "!=", "SAJ-321-B-00164")], readFields=["number"])
+invoices =  niceConn.readData("account.invoice", searchFields=[("state","=","open"),("company_id", "=", 1),("date_invoice", ">=", "2017-08-01"), ("date_invoice", "<=", "2017-08-31"), ("number", "!=", "SCNJ/2017/0001"), ("number", "!=", "SAJ-B-321/2017/0053"), ("number", "!=", "SAJ-321-B-00164"), ("number", "!=", "SAJ/2017/0001")], readFields=["number"])
 print "invoices = ", len(invoices)
 
 productTemplates = niceConn.readData("product.template", readFields=["hs_code_id", "categ_id"])
@@ -14,7 +14,7 @@ print "productDatas = ", len(productDatas)
 taxDetails = niceConn.readData("account.tax", readFields=["name", "amount"])
 print "Taxes = ", len(taxDetails)
 
-invoiceLines = niceConn.readData("account.invoice.line",  searchFields=[("company_id", "=", 5)], readFields=["invoice_id" , "product_id", "quantity", "discount", "price_unit", "price_subtotal", "invoice_line_tax_id"])
+invoiceLines = niceConn.readData("account.invoice.line",  searchFields=[("company_id", "=", 1)], readFields=["invoice_id" , "product_id", "quantity", "discount", "price_unit", "price_subtotal", "invoice_line_tax_id"])
 print "invoiceLines = ", len(invoiceLines)
 # print invoiceLines
 
@@ -107,7 +107,7 @@ for productData in productDatas:
 
 field =  ["HSN" , "NAME", "P CODE", "TOTAL QUANTITY", "UNTAXED TOTAL", "IGST", "SGST", "CGST", "TAXED TOTAL"]
 
-with open("HSNReportWithUnTaxAmt_Chennai.csv", 'w') as csvfile:
+with open("HSNReport_Kochi.csv", 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
 
     csvwriter.writerow(field)

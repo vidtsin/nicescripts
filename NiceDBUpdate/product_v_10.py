@@ -3,27 +3,27 @@ import os
 import xmlrpclib
 import base64
 import re
-import psycopg2
+# import psycopg2
 
 username = 'admin' #the user
 pwd = 'admin'      #the password of the user
 dbname = 'Odoo_back'
 
 # Get the uid
-sock_common = xmlrpclib.ServerProxy ('http://localhost:8069/xmlrpc/common')
+sock_common = xmlrpclib.ServerProxy ('http://18.221.67.228:8069/xmlrpc/common')
 uid = sock_common.login(dbname, username, pwd)
 
 #replace localhost with the address of the server
-sock = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/object')
+sock = xmlrpclib.ServerProxy('http://18.221.67.228:8069/xmlrpc/object')
 
-try:
-    conn = psycopg2.connect("dbname='Odoo_back' user='admin' host='localhost' password='admin'")
-except:
-    print "I am unable to connect to the database"
-cur = conn.cursor()
+# try:
+#     conn = psycopg2.connect("dbname='Odoo_back' user='admin' host='localhost' password='admin'")
+# except:
+#     print "I am unable to connect to the database"
+# cur = conn.cursor()
 
 sequence = 0
-with open('ProductTest.csv', 'rb') as product_file:
+with open('product_v_10.csv', 'rb') as product_file:
     product_datas = csv.reader(product_file, delimiter=',', quotechar='"')
     for row in product_datas:
         if sequence <= 0:

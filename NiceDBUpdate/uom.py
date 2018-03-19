@@ -8,11 +8,11 @@ pwd = 'admin'      #the password of the user
 dbname = 'Odoo_back'
 
 # Get the uid
-sock_common = xmlrpclib.ServerProxy ('http://localhost:8069/xmlrpc/common')
+sock_common = xmlrpclib.ServerProxy ('http://18.221.67.228:8069//xmlrpc/common')
 uid = sock_common.login(dbname, username, pwd)
 
 #replace localhost with the address of the server
-sock = xmlrpclib.ServerProxy('http://localhost:8069/xmlrpc/object')
+sock = xmlrpclib.ServerProxy('http://18.221.67.228:8069//xmlrpc/object')
 
 
 sequence = 0

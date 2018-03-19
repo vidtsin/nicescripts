@@ -6,12 +6,12 @@ def dataExtractor(data):
 	data = data.replace("]","")
 	return data
 
-niceConn = NiceDeviceConn.niceDevices("admin", "admin", "Production", "http://54.201.242.197:8069/xmlrpc")
+niceConn = NiceDeviceConn.niceDevices("admin", "admin123", "production", "http://188.42.96.102:8069/xmlrpc")
 
-invoices =  niceConn.readData("account.invoice", searchFields=[("state","=","open"),("company_id", "=", 1)], readFields=["invoice_line", "partner_id", "date_invoice", "number", "origin", "amount_total"])
+invoices =  niceConn.readData("account.invoice", searchFields=[("state","=","open"), ("company_id", "=", 1),("date_invoice", ">=", "2017-08-01"), ("date_invoice", "<=", "2017-08-31")], readFields=["invoice_line", "partner_id", "date_invoice", "number", "origin", "amount_total"])
 print "invoices = ",len(invoices)
 
-invoiceLines = niceConn.readData("account.invoice.line",  searchFields=[("company_id", "=", 1)], readFields=["invoice_id", "display_name", "quantity", "discount", "price_unit", "price_subtotal", "invoice_line_tax_id"])
+invoiceLines = niceConn.readData("account.invoice.line", readFields=["invoice_id", "display_name", "quantity", "discount", "price_unit", "price_subtotal", "invoice_line_tax_id"])
 print len(invoiceLines)
 
 stockPickings = niceConn.readData("stock.picking", readFields=["origin", "name"])
@@ -82,7 +82,7 @@ for invoice in invoices:
 			# print taxes
 
  
-with open("InvoiceTest.csv", 'w') as csvfile:
+with open("InvoiceTest_Kochi.csv", 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
 
     csvwriter.writerow(field)

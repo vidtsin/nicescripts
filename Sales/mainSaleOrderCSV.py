@@ -13,18 +13,18 @@ def refExtractor(data):
 	data = data.replace('"',"")
 	return data
 	
-niceConn = NiceDeviceConn.niceDevices("admin", "admin", "Production", "http://54.201.242.197:8069/xmlrpc")
+niceConn = NiceDeviceConn.niceDevices("admin", "admin123", "production", "http://188.42.96.102:8069/xmlrpc")
 
-saleOrderProgress =  niceConn.readData("sale.order", searchFields=[('state', '=', "progress"),("company_id","=",1)], readFields=["name", "client_order_ref","order_line", "date_order", "partner_id", "amount_total"])
+saleOrderProgress =  niceConn.readData("sale.order", searchFields=[('state', '=', "progress")], readFields=["name", "client_order_ref","order_line", "date_order", "partner_id", "amount_total"])
 print len(saleOrderProgress)
 
-saleOrderDone =  niceConn.readData("sale.order", searchFields=[('state', '=', "done"),("company_id","=",1)], readFields=["name", "client_order_ref", "order_line", "date_order", "partner_id", "amount_total"])
+saleOrderDone =  niceConn.readData("sale.order", searchFields=[('state', '=', "done")], readFields=["name", "client_order_ref", "order_line", "date_order", "partner_id", "amount_total"])
 print len(saleOrderDone)
 
 for saleOrder in saleOrderDone:
 	saleOrderProgress.append(saleOrder)
 
-saleLines = niceConn.readData("sale.order.line", searchFields=[("company_id","=",1)], readFields=["order_id", "name", "product_uom_qty", "discount", "tax_id", "price_unit", "price_subtotal"])
+saleLines = niceConn.readData("sale.order.line", readFields=["order_id", "name", "product_uom_qty", "discount", "tax_id", "price_unit", "price_subtotal"])
 print len(saleLines)
 
 taxDetails = niceConn.readData("account.tax", readFields=["name", "amount"])
